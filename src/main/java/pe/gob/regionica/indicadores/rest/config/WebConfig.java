@@ -17,7 +17,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"pe.gob.regionica.indicadores.motor.rest"})
+@ComponentScan(basePackages = {"pe.gob.regionica.indicadores.rest.service","pe.gob.regionica.indicadores.rest.ws","pe.gob.regionica.indicadores.rest.bean"})
 public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Override
