@@ -17,6 +17,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import pe.gob.regionica.indicadores.rest.utils.RestConstants;
@@ -38,14 +40,18 @@ public class RestService {
 			} catch (Exception e) {
 				log.error(e.getMessage());
 			}
-			input = "json=" + FileUtils.readFileToString(file, Charset.defaultCharset());
+			input = FileUtils.readFileToString(file, Charset.defaultCharset());
 		}
 		restTemplate.getMessageConverters().add(new ByteArrayHttpMessageConverter());
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.IMAGE_PNG));
-		HttpEntity<String> entity = new HttpEntity<String>(headers);
 		
-		ResponseEntity<byte[]> response = restTemplate.exchange(url, HttpMethod.GET, entity, byte[].class, input);
+		MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>(); 
+		body.add("json", input);
+		
+		HttpEntity<?> entity = new HttpEntity<Object>(body,headers);
+		
+		ResponseEntity<byte[]> response = restTemplate.exchange(url, HttpMethod.POST, entity, byte[].class, input);
 		
 		ByteArrayOutputStream output = new ByteArrayOutputStream();
 		if(response.getStatusCode().equals(HttpStatus.OK)){
