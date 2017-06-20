@@ -17,7 +17,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"pe.gob.regionica.indicadores.rest.service","pe.gob.regionica.indicadores.rest.ws","pe.gob.regionica.indicadores.rest.bean"})
+@ComponentScan(basePackages = {"pe.gob.regionica.indicadores.rest.service","pe.gob.regionica.indicadores.rest.ws","pe.gob.regionica.indicadores.rest.bean","pe.gob.regionica.indicadores.rest.config.hibernate"})
 public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Override
@@ -58,4 +58,5 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         resolver.setSuffix(".jsp");
         return resolver;
     }
+
 }

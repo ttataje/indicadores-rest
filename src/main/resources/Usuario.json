@@ -1,0 +1,25 @@
+[{
+	"codigo" : 1,
+	"nombre" : "Administrador",
+	"apellidoPaterno" : "del",
+	"apellidoMaterno" : "Sistema",
+	"username" : "admin",
+	"password" : "21232f297a57a5a743894a0e4a801fc3",
+	"rol" : "Administrador"
+},{
+	"codigo" : 2,
+	"nombre" : "Mantenimiento",
+	"apellidoPaterno" : "del",
+	"apellidoMaterno" : "Sistema",
+	"username" : "mantenimiento",
+	"password" : "05c3b08e1d1520527361730e42350705",
+	"rol" : "Mantenimiento"
+},{
+	"codigo" : 3,
+	"nombre" : "Consultor",
+	"apellidoPaterno" : "del",
+	"apellidoMaterno" : "Sistema",
+	"username" : "consultor",
+	"password" : "33d3a1b450a9fe871cabdfc13db2c2e0",
+	"rol" : "Consultor"
+}]
