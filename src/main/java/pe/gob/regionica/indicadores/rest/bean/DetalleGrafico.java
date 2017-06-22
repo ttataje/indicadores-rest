@@ -23,13 +23,17 @@ public class DetalleGrafico extends GenericBean {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long codigo;
 	
+	@Column(name="descripcion")
 	private String descripcion;
 	
+	@Column(name="grafico")
 	private Long grafico;
 	
 	@ManyToOne
+	@Column(name="padre")
 	private DetalleGrafico padre;
 	
+	@Column(name="valor")
 	private BigDecimal valor;
 	
 	@OneToMany(mappedBy="padre")

@@ -12,6 +12,22 @@ import pe.gob.regionica.indicadores.rest.bean.Indicador;
 public class IndicadorService extends GenericService {
 
 	public List<Indicador> list() {
-		return null;
+		List<Indicador> list = getSession().createQuery("from Indicador").getResultList();
+		return list;
+	}
+
+	@Transactional(readOnly=false)
+	public void save(Indicador indicador){
+		getSession().persist(indicador);
+	}
+
+	@Transactional(readOnly=false)
+	public void update(Indicador indicador){
+		getSession().update(indicador);
+	}
+	
+	@Transactional(readOnly=false)
+	public void delete(Indicador indicador){
+		getSession().delete(indicador);
 	}
 }
