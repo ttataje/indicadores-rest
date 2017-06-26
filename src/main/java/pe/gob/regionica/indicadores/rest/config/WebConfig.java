@@ -1,5 +1,7 @@
 package pe.gob.regionica.indicadores.rest.config;
 
+import java.util.List;
+
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Level;
 import org.apache.log4j.PatternLayout;
@@ -9,6 +11,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.ResourceHttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
+import org.springframework.oxm.xstream.XStreamMarshaller;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -36,6 +44,17 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		return propertySourcesPlaceholderConfigurer;
 	}
 	
+    @Override
+    public void configureMessageConverters(
+      List<HttpMessageConverter<?>> converters) {
+     
+    	converters.add(new StringHttpMessageConverter());
+    	converters.add(new ResourceHttpMessageConverter());
+        converters.add(new MappingJackson2HttpMessageConverter());
+ 
+        super.configureMessageConverters(converters);
+    }
+
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();

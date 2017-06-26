@@ -30,7 +30,6 @@ public class DetalleGrafico extends GenericBean {
 	private Long grafico;
 	
 	@ManyToOne
-	@Column(name="padre")
 	private DetalleGrafico padre;
 	
 	@Column(name="valor")

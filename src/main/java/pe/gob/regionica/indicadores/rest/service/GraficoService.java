@@ -16,6 +16,11 @@ public class GraficoService extends GenericService {
 		return list;
 	}
 
+	public Grafico get(Long id) {
+		Grafico grafico = getSession().get(Grafico.class, id);
+		return grafico;
+	}
+
 	@Transactional(readOnly=false)
 	public void save(Grafico grafico){
 		getSession().persist(grafico);

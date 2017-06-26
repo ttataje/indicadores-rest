@@ -5,35 +5,38 @@ import java.util.List;
 import org.apache.commons.collections.ListUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import pe.gob.regionica.indicadores.rest.bean.Color;
 import pe.gob.regionica.indicadores.rest.service.ColorService;
 
-@RestController
+@Controller
 @RequestMapping(value = "/color")
 public class ColorWS {
 
 	private final Logger log = LoggerFactory.getLogger(ColorWS.class);
 	
-	@Autowired
 	private static ColorService colorService;
 	
+	public ColorWS(){
+		super();
+		colorService = new ColorService();
+	}
+	
 	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/list")
 	@ResponseBody
-	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Color> list() {
+	public ResponseEntity<List<Color>> list() {
 		try{
 			List<Color> result = colorService.list();
-			return result;
+			return new ResponseEntity<List<Color>>(result, HttpStatus.ACCEPTED);
 		}catch(Exception e){
 			log.error(e.getMessage());
 		}
-		return ListUtils.EMPTY_LIST;
+		return new ResponseEntity<List<Color>>(ListUtils.EMPTY_LIST, HttpStatus.ACCEPTED);
 	}
 }

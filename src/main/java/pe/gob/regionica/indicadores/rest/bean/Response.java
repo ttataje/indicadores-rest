@@ -12,6 +12,23 @@ public class Response extends GenericBean{
 	private String message;
 	
 	private Object object;
+	
+	public Response() {
+		super();
+	}
+	
+	public Response(String status, Object object) {
+		super();
+		this.status = status;
+		this.object = object;
+	}
+
+	public Response(String status, Object object, String message) {
+		super();
+		this.status = status;
+		this.message = message;
+		this.object = object;
+	}
 
 	public String getStatus() {
 		return status;

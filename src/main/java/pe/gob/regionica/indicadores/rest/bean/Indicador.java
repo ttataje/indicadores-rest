@@ -26,7 +26,6 @@ public class Indicador extends GenericBean {
 	private String descripcion;
 	
 	@ManyToOne
-	@Column(name="padre", nullable=true)
 	private Indicador padre;
 	
 	@Column(name="tipo", length=20)
