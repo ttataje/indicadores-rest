@@ -44,19 +44,22 @@ public class HibernateConfig {
 		return properties;
 	}
 	
-	@Bean
-	public LocalSessionFactoryBean getSessionFactory() {
+	@Autowired
+	@Bean(name = "sessionFactory")
+	public LocalSessionFactoryBean getSessionFactory(DataSource dataSource) {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-		sessionFactory.setDataSource(getDataSource());
+		sessionFactory.setDataSource(dataSource);
 		sessionFactory.setPackagesToScan(new String[] { "pe.gob.regionica.indicadores.rest.bean" });
 		sessionFactory.setHibernateProperties(getHibernateProperties());
 		return sessionFactory;
 	}
 
-	@Bean
+	@Autowired
+	@Bean(name = "transactionManager")
 	public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
 		HibernateTransactionManager txManager = new HibernateTransactionManager();
 		txManager.setSessionFactory(sessionFactory);
 		return txManager;
 	}
+
 }

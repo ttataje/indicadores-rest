@@ -2,32 +2,51 @@ package pe.gob.regionica.indicadores.rest.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import pe.gob.regionica.indicadores.rest.bean.Indicador;
+import pe.gob.regionica.indicadores.rest.dao.IndicadorDAO;
 
-@Service
-@Transactional(readOnly=true)
-public class IndicadorService extends GenericService {
+@Component
+@Transactional
+public class IndicadorService {
+
+	private IndicadorDAO indicadorDAO;
+	
+	public IndicadorDAO getIndicadorDAO() {
+		return indicadorDAO;
+	}
+
+	@Autowired
+	public void setIndicadorDAO(IndicadorDAO indicadorDAO) {
+		this.indicadorDAO = indicadorDAO;
+	}
+	
+	public IndicadorService(){
+		super();
+	}
+	
+	public IndicadorService(IndicadorDAO indicadorDAO){
+		super();
+		this.indicadorDAO = indicadorDAO;
+	}
 
 	public List<Indicador> list() {
-		List<Indicador> list = getSession().createQuery("from Indicador").getResultList();
+		List<Indicador> list = getIndicadorDAO().list();
 		return list;
 	}
 
-	@Transactional(readOnly=false)
 	public void save(Indicador indicador){
-		getSession().persist(indicador);
+		getIndicadorDAO().save(indicador);
 	}
 
-	@Transactional(readOnly=false)
 	public void update(Indicador indicador){
-		getSession().update(indicador);
+		getIndicadorDAO().update(indicador);
 	}
 	
-	@Transactional(readOnly=false)
 	public void delete(Indicador indicador){
-		getSession().delete(indicador);
+		getIndicadorDAO().delete(indicador);
 	}
 }

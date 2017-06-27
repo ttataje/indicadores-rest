@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.commons.collections.ListUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,12 +21,12 @@ import pe.gob.regionica.indicadores.rest.service.GraficoService;
 public class GraficoWS {
 
 	private final Logger log = LoggerFactory.getLogger(GraficoWS.class);
-	
-	private static GraficoService graficoService;
+
+	@Autowired
+	private GraficoService graficoService;
 	
 	public GraficoWS(){
 		super();
-		graficoService = new GraficoService();
 	}
 
 	@SuppressWarnings("unchecked")

@@ -15,8 +15,6 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.ResourceHttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
-import org.springframework.oxm.xstream.XStreamMarshaller;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -25,7 +23,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"pe.gob.regionica.indicadores.rest.service","pe.gob.regionica.indicadores.rest.ws","pe.gob.regionica.indicadores.rest.bean","pe.gob.regionica.indicadores.rest.config.hibernate"})
+@ComponentScan(basePackages = {"pe.gob.regionica.indicadores.rest.config.hibernate","pe.gob.regionica.indicadores.rest.config.dao","pe.gob.regionica.indicadores.rest.config.service","pe.gob.regionica.indicadores.rest.dao","pe.gob.regionica.indicadores.rest.service","pe.gob.regionica.indicadores.rest.ws"})
 public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Override
