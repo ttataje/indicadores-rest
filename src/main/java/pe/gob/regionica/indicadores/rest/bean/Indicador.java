@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,7 +39,7 @@ public class Indicador extends GenericBean {
 	@Column(name="tipo", length=20)
 	private String tipo; // Determina el tipo de nodo (folder, chart)
 	
-	@OneToMany(mappedBy="padre")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="padre", cascade = CascadeType.ALL)
 	private Set<Indicador> children = new HashSet<Indicador>();
 
 	public Long getCodigo() {

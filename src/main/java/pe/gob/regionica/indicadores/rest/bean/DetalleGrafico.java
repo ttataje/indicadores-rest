@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,7 +40,7 @@ public class DetalleGrafico extends GenericBean {
 	@Column(name="valor")
 	private BigDecimal valor;
 	
-	@OneToMany(mappedBy="padre")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="padre", cascade = CascadeType.ALL)
 	private Set<DetalleGrafico> children = new HashSet<DetalleGrafico>();
 
 	public Long getCodigo() {
