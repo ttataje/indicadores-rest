@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import pe.gob.regionica.indicadores.rest.bean.Indicador;
 
+@SuppressWarnings("unchecked")
 @Repository
 public class IndicadorDAO {
 	
