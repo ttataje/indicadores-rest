@@ -34,7 +34,13 @@ public class IndicadorDAO {
 
 	public List<Indicador> list() {
 		Session session = getSessionFactory().getCurrentSession();
-		List<Indicador> list = session.createQuery("from Indicador").getResultList();
+		List<Indicador> list = session.createQuery("from Indicador order by position").getResultList();
+		return list;
+	}
+	
+	public List<Indicador> get(Long codigo) {
+		Session session = getSessionFactory().getCurrentSession();
+		List<Indicador> list = session.createQuery("from Indicador where codigo=:codigo order by position").setParameter("codigo", codigo).getResultList();
 		return list;
 	}
 

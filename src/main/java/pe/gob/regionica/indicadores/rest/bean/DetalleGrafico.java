@@ -1,13 +1,16 @@
 package pe.gob.regionica.indicadores.rest.bean;
 
 import java.math.BigDecimal;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -29,14 +32,15 @@ public class DetalleGrafico extends GenericBean {
 	@Column(name="grafico")
 	private Long grafico;
 	
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.ALL})
+	@JoinColumn(name="padre")
 	private DetalleGrafico padre;
 	
 	@Column(name="valor")
 	private BigDecimal valor;
 	
 	@OneToMany(mappedBy="padre")
-	private Collection<DetalleGrafico> children;
+	private Set<DetalleGrafico> children = new HashSet<DetalleGrafico>();
 
 	public Long getCodigo() {
 		return codigo;
@@ -78,11 +82,11 @@ public class DetalleGrafico extends GenericBean {
 		this.valor = valor;
 	}
 
-	public Collection<DetalleGrafico> getChildren() {
+	public Set<DetalleGrafico> getChildren() {
 		return children;
 	}
 
-	public void setChildren(Collection<DetalleGrafico> children) {
+	public void setChildren(Set<DetalleGrafico> children) {
 		this.children = children;
 	}
 

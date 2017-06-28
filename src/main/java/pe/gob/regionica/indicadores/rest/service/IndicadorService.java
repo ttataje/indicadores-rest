@@ -37,6 +37,11 @@ public class IndicadorService {
 		List<Indicador> list = getIndicadorDAO().list();
 		return list;
 	}
+	
+	public List<Indicador> get(Long codigo) {
+		List<Indicador> list = getIndicadorDAO().get(codigo);
+		return list;
+	}
 
 	public void save(Indicador indicador){
 		getIndicadorDAO().save(indicador);
