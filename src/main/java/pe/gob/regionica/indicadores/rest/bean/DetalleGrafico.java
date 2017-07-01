@@ -1,20 +1,15 @@
 package pe.gob.regionica.indicadores.rest.bean;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Formula;
 
 @Entity
 @Table(name="DETALLE_GRAFICO")
@@ -33,15 +28,28 @@ public class DetalleGrafico extends GenericBean {
 	@Column(name="grafico")
 	private Long grafico;
 	
-	@ManyToOne(cascade={CascadeType.ALL})
-	@JoinColumn(name="padre")
-	private DetalleGrafico padre;
+	@Column(name="padre")
+	private Long padre;
 	
 	@Column(name="valor")
 	private BigDecimal valor;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy="padre", cascade = CascadeType.ALL)
-	private Set<DetalleGrafico> children = new HashSet<DetalleGrafico>();
+	@Column(name="tipo")
+	private String tipo = "bar";
+	
+	@Column(name="label")
+	private String label;
+	
+	@Column(name="borderColor")
+	private String borderColor;
+	
+	@Column(name="borderWidth")
+	private Long borderWidth = new Long (2);
+	
+	//fill: false,
+	
+	@Formula("(select (count(dg.codigo) > 0) from DETALLE_GRAFICO dg where dg.padre = codigo)")
+	private Boolean children = Boolean.FALSE;
 
 	public Long getCodigo() {
 		return codigo;
@@ -67,11 +75,11 @@ public class DetalleGrafico extends GenericBean {
 		this.grafico = grafico;
 	}
 
-	public DetalleGrafico getPadre() {
+	public Long getPadre() {
 		return padre;
 	}
 
-	public void setPadre(DetalleGrafico padre) {
+	public void setPadre(Long padre) {
 		this.padre = padre;
 	}
 
@@ -83,12 +91,44 @@ public class DetalleGrafico extends GenericBean {
 		this.valor = valor;
 	}
 
-	public Set<DetalleGrafico> getChildren() {
+	public Boolean getChildren() {
 		return children;
 	}
 
-	public void setChildren(Set<DetalleGrafico> children) {
+	public void setChildren(Boolean children) {
 		this.children = children;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
+	}
+
+	public String getBorderColor() {
+		return borderColor;
+	}
+
+	public void setBorderColor(String borderColor) {
+		this.borderColor = borderColor;
+	}
+
+	public Long getBorderWidth() {
+		return borderWidth;
+	}
+
+	public void setBorderWidth(Long borderWidth) {
+		this.borderWidth = borderWidth;
 	}
 
 }

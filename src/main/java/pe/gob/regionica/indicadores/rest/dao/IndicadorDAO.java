@@ -1,5 +1,6 @@
 package pe.gob.regionica.indicadores.rest.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -39,15 +40,20 @@ public class IndicadorDAO {
 		return list;
 	}
 	
-	public List<Indicador> get(Long codigo) {
+	public List<Indicador> getByParent(Long codigo) {
 		Session session = getSessionFactory().getCurrentSession();
-		List<Indicador> list = session.createQuery("from Indicador where codigo=:codigo order by position").setParameter("codigo", codigo).getResultList();
+		List<Indicador> list = (codigo != null ? session.createQuery("from Indicador where padre=:codigo order by position").setParameter("codigo", codigo) : session.createQuery("from Indicador where padre is null order by position")).getResultList();
 		return list;
 	}
-
-	public void save(Indicador indicador){
+	
+	public Indicador get(Long codigo) {
 		Session session = getSessionFactory().getCurrentSession();
-		session.save(indicador);
+		return (Indicador) session.createQuery("from Indicador where codigo=:codigo order by position").setParameter("codigo", codigo).getSingleResult();
+	}
+
+	public Serializable save(Indicador indicador){
+		Session session = getSessionFactory().getCurrentSession();
+		return session.save(indicador);
 	}
 
 	public void update(Indicador indicador){

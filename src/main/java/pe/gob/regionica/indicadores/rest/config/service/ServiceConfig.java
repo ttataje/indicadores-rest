@@ -5,9 +5,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import pe.gob.regionica.indicadores.rest.dao.ColorDAO;
+import pe.gob.regionica.indicadores.rest.dao.DetalleGraficoDAO;
 import pe.gob.regionica.indicadores.rest.dao.GraficoDAO;
 import pe.gob.regionica.indicadores.rest.dao.IndicadorDAO;
 import pe.gob.regionica.indicadores.rest.service.ColorService;
+import pe.gob.regionica.indicadores.rest.service.DetalleGraficoService;
 import pe.gob.regionica.indicadores.rest.service.GraficoService;
 import pe.gob.regionica.indicadores.rest.service.IndicadorService;
 
@@ -30,5 +32,11 @@ public class ServiceConfig {
 	@Bean(name = "indicadorService")
 	public IndicadorService getIndicadorService(IndicadorDAO indicadorDAO){
 		return new IndicadorService(indicadorDAO);
+	}
+
+	@Autowired
+	@Bean(name = "detalleGraficoService")
+	public DetalleGraficoService getDetalleGraficoService(DetalleGraficoDAO detalleGraficoDAO){
+		return new DetalleGraficoService(detalleGraficoDAO);
 	}
 }

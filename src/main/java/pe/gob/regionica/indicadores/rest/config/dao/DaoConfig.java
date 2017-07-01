@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import pe.gob.regionica.indicadores.rest.dao.ColorDAO;
+import pe.gob.regionica.indicadores.rest.dao.DetalleGraficoDAO;
 import pe.gob.regionica.indicadores.rest.dao.GraficoDAO;
 import pe.gob.regionica.indicadores.rest.dao.IndicadorDAO;
 
@@ -32,4 +33,9 @@ public class DaoConfig {
 		return new IndicadorDAO(sessionFactory);
 	}
 
+	@Autowired
+	@Bean(name = "detalleGraficoDAO")
+	public DetalleGraficoDAO getDetalleGraficoDAO(SessionFactory sessionFactory){
+		return new DetalleGraficoDAO(sessionFactory);
+	}
 }

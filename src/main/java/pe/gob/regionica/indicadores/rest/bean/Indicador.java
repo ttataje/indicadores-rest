@@ -1,19 +1,13 @@
 package pe.gob.regionica.indicadores.rest.bean;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Formula;
 
 @Entity
 @Table(name="INDICADOR")
@@ -32,15 +26,14 @@ public class Indicador extends GenericBean {
 	@Column(name="position")
 	private Long position;
 	
-	@ManyToOne(cascade={CascadeType.ALL})
-	@JoinColumn(name="padre")
-	private Indicador padre;
+	@Column(name="padre")
+	private Long padre;
 	
 	@Column(name="tipo", length=20)
 	private String tipo; // Determina el tipo de nodo (folder, chart)
-	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy="padre", cascade = CascadeType.ALL)
-	private Set<Indicador> children = new HashSet<Indicador>();
+
+	@Formula("(select (count(i.codigo) > 0) from INDICADOR i where i.padre = codigo)")
+	private Boolean children;
 
 	public Long getCodigo() {
 		return codigo;
@@ -66,11 +59,11 @@ public class Indicador extends GenericBean {
 		this.position = position;
 	}
 
-	public Indicador getPadre() {
+	public Long getPadre() {
 		return padre;
 	}
 
-	public void setPadre(Indicador padre) {
+	public void setPadre(Long padre) {
 		this.padre = padre;
 	}
 
@@ -82,11 +75,11 @@ public class Indicador extends GenericBean {
 		this.tipo = tipo;
 	}
 
-	public Set<Indicador> getChildren() {
+	public Boolean getChildren() {
 		return children;
 	}
 
-	public void setChildren(Set<Indicador> children) {
+	public void setChildren(Boolean children) {
 		this.children = children;
 	}
 	

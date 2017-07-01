@@ -1,5 +1,6 @@
 package pe.gob.regionica.indicadores.rest.service;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,13 +38,13 @@ public class GraficoService {
 		return list;
 	}
 
-	public Grafico get(Long id) {
+	public Grafico get(Long id) throws Exception {
 		Grafico grafico = getGraficoDAO().get(id);
 		return grafico;
 	}
-
-	public void save(Grafico grafico){
-		getGraficoDAO().save(grafico);
+	
+	public Serializable save(Grafico grafico){
+		return getGraficoDAO().save(grafico);
 	}
 
 	public void update(Grafico grafico){

@@ -1,5 +1,6 @@
 package pe.gob.regionica.indicadores.rest.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import pe.gob.regionica.indicadores.rest.bean.Grafico;
 
 @Repository
+@SuppressWarnings("unchecked")
 public class GraficoDAO {
 	
 	private SessionFactory sessionFactory;
@@ -38,15 +40,20 @@ public class GraficoDAO {
 		return list;
 	}
 
-	public Grafico get(Long id) {
+	public Grafico get(Long id) throws Exception{
 		Session session = getSessionFactory().getCurrentSession();
-		Grafico grafico = session.get(Grafico.class, id);
+		Grafico grafico = null;
+		try{
+			grafico = (Grafico)session.createQuery("from Grafico where indicador = :indicador").setParameter("indicador", id).getSingleResult();
+		}catch(Exception e){
+			throw new Exception(e);
+		}
 		return grafico;
 	}
-
-	public void save(Grafico grafico){
+	
+	public Serializable save(Grafico grafico){
 		Session session = getSessionFactory().getCurrentSession();
-		session.save(grafico);
+		return session.save(grafico);
 	}
 
 	public void update(Grafico grafico){

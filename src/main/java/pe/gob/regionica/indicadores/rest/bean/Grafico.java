@@ -2,8 +2,10 @@ package pe.gob.regionica.indicadores.rest.bean;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,12 +24,12 @@ public class Grafico extends GenericBean {
 	private Long codigo;
 	
 	@Column(name="indicador", nullable=false)
-	private Indicador indicador;
+	private Long indicador;
 	
 	@Column(name="tipo", length=20, nullable=false)
 	private String tipo;
 	
-	@OneToMany(mappedBy="grafico")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="grafico", cascade = CascadeType.ALL)
 	private Collection<DetalleGrafico> data;
 
 	public Long getCodigo() {
@@ -38,11 +40,11 @@ public class Grafico extends GenericBean {
 		this.codigo = codigo;
 	}
 
-	public Indicador getIndicador() {
+	public Long getIndicador() {
 		return indicador;
 	}
 
-	public void setIndicador(Indicador indicador) {
+	public void setIndicador(Long indicador) {
 		this.indicador = indicador;
 	}
 

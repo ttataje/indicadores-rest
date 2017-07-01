@@ -1,5 +1,6 @@
 package pe.gob.regionica.indicadores.rest.service;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,14 +38,18 @@ public class IndicadorService {
 		List<Indicador> list = getIndicadorDAO().list();
 		return list;
 	}
-	
-	public List<Indicador> get(Long codigo) {
-		List<Indicador> list = getIndicadorDAO().get(codigo);
+
+	public List<Indicador> getByParent(Long codigo) {
+		List<Indicador> list = getIndicadorDAO().getByParent(codigo);
 		return list;
 	}
+	
+	public Indicador get(Long codigo) {
+		return getIndicadorDAO().get(codigo);
+	}
 
-	public void save(Indicador indicador){
-		getIndicadorDAO().save(indicador);
+	public Serializable save(Indicador indicador){
+		return getIndicadorDAO().save(indicador);
 	}
 
 	public void update(Indicador indicador){
