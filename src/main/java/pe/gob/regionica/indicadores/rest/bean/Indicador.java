@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Formula;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name="INDICADOR")
@@ -31,6 +32,10 @@ public class Indicador extends GenericBean {
 	
 	@Column(name="tipo", length=20)
 	private String tipo; // Determina el tipo de nodo (folder, chart)
+	
+	@Column(name="publico")
+	@Type(type="org.hibernate.type.NumericBooleanType")
+	private Boolean publico;
 
 	@Formula("(select (count(i.codigo) > 0) from INDICADOR i where i.padre = codigo)")
 	private Boolean children;
