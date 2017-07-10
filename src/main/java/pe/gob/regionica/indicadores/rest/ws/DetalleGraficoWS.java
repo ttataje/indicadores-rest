@@ -107,6 +107,9 @@ public class DetalleGraficoWS {
 	public ResponseEntity<Long> guardarDetalleGrafico(HttpServletRequest request, ModelMap model){
 		try{
 			DetalleGrafico detalleGrafico = new DetalleGrafico();
+			if(!StringUtils.isEmpty(request.getParameter("detalle.codigo"))){
+				detalleGrafico.setCodigo(new Long(request.getParameter("detalle.codigo")));
+			}
 			if(StringUtils.isEmpty(request.getParameter("detalle.padre.codigo"))){
 				detalleGrafico.setGrafico(new Long(request.getParameter("detalle.grafico.codigo")));
 			}else{
@@ -117,8 +120,18 @@ public class DetalleGraficoWS {
 			}else{
 				detalleGrafico.setDescripcion(request.getParameter("detalle.descripcion"));
 			}
-			
-			return new ResponseEntity<Long>((Long)detalleGraficoService.save(detalleGrafico), HttpStatus.ACCEPTED);
+			if(detalleGrafico.getCodigo() == null){
+				return new ResponseEntity<Long>((Long)detalleGraficoService.save(detalleGrafico), HttpStatus.ACCEPTED);
+			}else{
+				detalleGrafico = detalleGraficoService.get(new Long(request.getParameter("detalle.codigo")));
+				if(StringUtils.isEmpty(request.getParameter("detalle.descripcion"))){
+					detalleGrafico.setValor(new BigDecimal(request.getParameter("detalle.valor")));
+				}else{
+					detalleGrafico.setDescripcion(request.getParameter("detalle.descripcion"));
+				}
+				detalleGraficoService.update(detalleGrafico);
+				return new ResponseEntity<Long>(Long.getLong("1"), HttpStatus.ACCEPTED);
+			}
 		}catch(Exception e){
 			log.error(e.getMessage());
 			return new ResponseEntity<Long>((Long)null, HttpStatus.BAD_REQUEST);
