@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import pe.gob.regionica.indicadores.rest.dao.ColorDAO;
 import pe.gob.regionica.indicadores.rest.dao.DetalleGraficoDAO;
 import pe.gob.regionica.indicadores.rest.dao.GraficoDAO;
 import pe.gob.regionica.indicadores.rest.dao.IndicadorDAO;
@@ -14,12 +13,6 @@ import pe.gob.regionica.indicadores.rest.dao.IndicadorDAO;
 @Configuration
 @EnableTransactionManagement
 public class DaoConfig {
-
-	@Autowired
-	@Bean(name = "colorDAO")
-	public ColorDAO getColorDAO(SessionFactory sessionFactory){
-		return new ColorDAO(sessionFactory);
-	}
 
 	@Autowired
 	@Bean(name = "graficoDAO")
