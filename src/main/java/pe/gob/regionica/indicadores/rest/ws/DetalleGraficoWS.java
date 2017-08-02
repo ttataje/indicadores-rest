@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +68,12 @@ public class DetalleGraficoWS {
 		try{
 			String codigo = request.getParameter("codigo");
 			detalleGrafico = detalleGraficoService.getByChart(StringUtils.isEmpty(codigo) ? null : new Long(codigo));
+			if(CollectionUtils.isEmpty(detalleGrafico)){
+				DetalleGrafico _detalleGrafico = new DetalleGrafico();
+				_detalleGrafico.setGrafico(new Long(codigo));
+				detalleGraficoService.save(_detalleGrafico);
+				detalleGrafico = detalleGraficoService.getByChart(StringUtils.isEmpty(codigo) ? null : new Long(codigo));
+			}
 		}catch(Exception e){
 			log.error(e.getMessage());
 			return new ResponseEntity<List<DetalleGrafico>>(detalleGrafico, HttpStatus.BAD_REQUEST);
@@ -82,14 +89,14 @@ public class DetalleGraficoWS {
 			if(!StringUtils.isEmpty(request.getParameter("detalle.codigo"))){
 				detalleGrafico.setCodigo(new Long(request.getParameter("detalle.codigo")));
 			}
-			if(StringUtils.isEmpty(request.getParameter("detalle.grafico.codigo"))){
+			if(!StringUtils.isEmpty(request.getParameter("detalle.grafico.codigo"))){
 				detalleGrafico.setGrafico(new Long(request.getParameter("detalle.grafico.codigo")));
 			}
-			if(StringUtils.isEmpty(request.getParameter("detalle.data"))){
+			if(!StringUtils.isEmpty(request.getParameter("detalle.data"))){
 				detalleGrafico.setData(request.getParameter("detalle.data"));
 			}
 
-			if(StringUtils.isEmpty(request.getParameter("detalle.attributes"))){
+			if(!StringUtils.isEmpty(request.getParameter("detalle.attributes"))){
 				detalleGrafico.setAttributes(request.getParameter("detalle.attributes"));
 			}
 			if(detalleGrafico.getCodigo() == null){
