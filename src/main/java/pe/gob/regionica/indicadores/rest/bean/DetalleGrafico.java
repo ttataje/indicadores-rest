@@ -26,7 +26,10 @@ public class DetalleGrafico extends GenericBean {
 
 	@Column(name="attributes")
 	private String attributes;
-	
+
+	@Column(name="footer")
+	private String footer;
+
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -57,5 +60,13 @@ public class DetalleGrafico extends GenericBean {
 
 	public void setAttributes(String attributes) {
 		this.attributes = attributes;
+	}
+	
+	public String getFooter() {
+		return footer;
+	}
+
+	public void setFooter(String footer) {
+		this.footer = footer;
 	}
 }

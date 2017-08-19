@@ -99,6 +99,10 @@ public class DetalleGraficoWS {
 			if(!StringUtils.isEmpty(request.getParameter("detalle.attributes"))){
 				detalleGrafico.setAttributes(request.getParameter("detalle.attributes"));
 			}
+
+			if(!StringUtils.isEmpty(request.getParameter("detalle.footer"))){
+				detalleGrafico.setFooter(request.getParameter("detalle.footer"));
+			}
 			if(detalleGrafico.getCodigo() == null){
 				return new ResponseEntity<Long>((Long)detalleGraficoService.save(detalleGrafico), HttpStatus.ACCEPTED);
 			}else{

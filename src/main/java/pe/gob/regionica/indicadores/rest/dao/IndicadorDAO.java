@@ -36,19 +36,19 @@ public class IndicadorDAO {
 
 	public List<Indicador> list() {
 		Session session = getSessionFactory().getCurrentSession();
-		List<Indicador> list = session.createQuery("from Indicador order by position").getResultList();
+		List<Indicador> list = session.createQuery("from Indicador order by codigo").getResultList();
 		return list;
 	}
 	
 	public List<Indicador> getByParent(Long codigo) {
 		Session session = getSessionFactory().getCurrentSession();
-		List<Indicador> list = (codigo != null ? session.createQuery("from Indicador where padre=:codigo order by position").setParameter("codigo", codigo) : session.createQuery("from Indicador where padre is null order by position")).getResultList();
+		List<Indicador> list = (codigo != null ? session.createQuery("from Indicador where padre=:codigo order by codigo").setParameter("codigo", codigo) : session.createQuery("from Indicador where padre is null order by position")).getResultList();
 		return list;
 	}
 	
 	public Indicador get(Long codigo) {
 		Session session = getSessionFactory().getCurrentSession();
-		return (Indicador) session.createQuery("from Indicador where codigo=:codigo order by position").setParameter("codigo", codigo).getSingleResult();
+		return (Indicador) session.createQuery("from Indicador where codigo=:codigo order by codigo").setParameter("codigo", codigo).getSingleResult();
 	}
 
 	public Serializable save(Indicador indicador){
