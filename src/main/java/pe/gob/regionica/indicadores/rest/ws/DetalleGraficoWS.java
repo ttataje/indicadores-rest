@@ -109,6 +109,7 @@ public class DetalleGraficoWS {
 				detalleGrafico = detalleGraficoService.get(new Long(request.getParameter("detalle.codigo")));
 				detalleGrafico.setData(request.getParameter("detalle.data"));
 				detalleGrafico.setAttributes(request.getParameter("detalle.attributes"));
+				detalleGrafico.setFooter(request.getParameter("detalle.footer"));
 				detalleGraficoService.update(detalleGrafico);
 				return new ResponseEntity<Long>(Long.getLong("1"), HttpStatus.ACCEPTED);
 			}
